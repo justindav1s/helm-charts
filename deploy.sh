@@ -15,7 +15,7 @@ helm repo remove jd_repos
 
 sleep 5
 
-helm repo add jd_repos https://github.com/justinndavis/inventory/-/raw/master/flux/charts
+helm repo add jd_repos https://raw.githubusercontent.com/justindav1s/helmcharts/main/charts
 
 sleep 5
 
@@ -23,7 +23,7 @@ helm repo update
 
 sleep 5
 
-curl https://gitlab.com/justinndavis/inventory/-/raw/master/flux/charts/index.yaml
+curl https://raw.githubusercontent.com/justindav1s/helmcharts/main/charts/index.yaml
 
 helm search repo jd_repos
 
