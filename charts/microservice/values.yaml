@@ -1,0 +1,20 @@
+platform: ocp
+versionlabel: v1
+image_reg: quay.io/justindav1s
+image_name: basket
+image_tag: latest
+applabel: flux
+containerport: 8080
+spring_active_profile: dev
+replicas: 1
+trigger: 1
+container:
+  env:
+  - name: SPRING_PROFILES_ACTIVE
+    value: dev
+  - name: inventory.host
+    value: inventory:8080
+  - name: user.host
+    value: user:8080
+  - name: basket.host
+    value: basket:8080    

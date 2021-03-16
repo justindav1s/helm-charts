@@ -1,0 +1,11 @@
+apiVersion: v1
+version: 1.0.12
+appVersion: 1.0.12
+name: microservice
+description: MicroService Helm chart for Kubernetes
+home: https://gitlab.com/justinndavis/inventory
+maintainers:
+- email: justinndavis@users.noreply.gitlab.com
+  name: justinndavis
+sources:
+- https://gitlab.com/justinndavis/inventory

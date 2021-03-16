@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    ingress.kubernetes.io/service-upstream: "true"
+    konghq.com/host-header: {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local
+  name: {{ .Release.Name }}
+  labels:
+    service: {{ .Release.Name }}
+    app: {{ .Values.applabel }}
+    version: {{ .Values.versionlabel }}
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    service: {{ .Release.Name }}

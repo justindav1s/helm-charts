@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.versionlabel }}
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.app: glob:{{ .Values.image_name }}
+  labels:
+    service: {{ .Release.Name }}
+    app: {{ .Values.applabel }}
+    version: {{ .Values.versionlabel }}
+    trigger: {{ .Values.trigger | quote }}
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      service: {{ .Release.Name }}
+      app: {{ .Values.applabel }}
+      version: {{ .Values.versionlabel }}
+  template:
+    metadata:
+      labels:
+        service: {{ .Release.Name }}
+        app: {{ .Values.applabel }}
+        version: {{ .Values.versionlabel }}
+        trigger: {{ .Values.trigger | quote }}
+      annotations:
+        sidecar.istio.io/inject: "true"    
+    spec:
+      serviceAccountName: {{ .Release.Name }}-sa
+      containers:
+      - name: {{ .Release.Name }}
+        image: '{{ .Values.image_reg }}/{{ .Values.image_name }}:{{ .Values.image_tag }}'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.containerport }}
+        {{ if eq .Values.platform "k8s" }}
+        securityContext:
+          runAsUser: 1000
+        {{ else }}
+        securityContext: {}   
+        {{ end }}  
+        env:
+{{- if .Values.container.env }}
+{{ toYaml .Values.container.env | indent 10 }}
+{{- end }} 
+        volumeMounts:
+          - name: {{ .Release.Name }}-config-vol
+            mountPath: /config
+      volumes:
+        - name: {{ .Release.Name }}-config-vol
+          configMap:
+            name: {{ .Release.Name }}-config
+            defaultMode: 420

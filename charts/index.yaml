@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  microservice:
+  - apiVersion: v1
+    appVersion: 1.0.12
+    created: "2021-03-16T09:56:39.391235Z"
+    description: MicroService Helm chart for Kubernetes
+    digest: 2ca5adbeda7948453a925e8990c5bab063ff5cf8d6efc178503a65f5d29bdd9a
+    home: https://gitlab.com/justinndavis/inventory
+    maintainers:
+    - email: justinndavis@users.noreply.gitlab.com
+      name: justinndavis
+    name: microservice
+    sources:
+    - https://gitlab.com/justinndavis/inventory
+    urls:
+    - microservice-1.0.12.tgz
+    version: 1.0.12
+generated: "2021-03-16T09:56:39.390794Z"
