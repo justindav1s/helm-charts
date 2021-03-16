@@ -3,9 +3,9 @@ entries:
   microservice:
   - apiVersion: v1
     appVersion: 1.0.12
-    created: "2021-03-16T10:01:04.689979Z"
+    created: "2021-03-16T10:01:57.506231Z"
     description: MicroService Helm chart for Kubernetes
-    digest: a6d0b3a11181b14493198128e32e64c06909d455a90a38f410db74ea0fa1e2fc
+    digest: ce4e9f6371e101e85f3dcd69062456d3f59588a441d770b6b9ec3a9cf7228a3e
     home: https://github.com/justindav1s/helmcharts
     maintainers:
     - email: justindav1s@users.noreply.github.com
@@ -16,4 +16,4 @@ entries:
     urls:
     - microservice-1.0.12.tgz
     version: 1.0.12
-generated: "2021-03-16T10:01:04.689528Z"
+generated: "2021-03-16T10:01:57.50576Z"
