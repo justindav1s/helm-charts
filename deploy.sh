@@ -13,11 +13,11 @@ git push
 
 helm repo remove jd_repos
 
-helm repo add jd_repos https://raw.githubusercontent.com/justindav1s/helmcharts/main/charts
+helm repo add jd_repos https://gitlab.com/demoplatform/helmcharts/-/raw/main/charts/
 
 helm repo update
 
-curl https://raw.githubusercontent.com/justindav1s/helmcharts/main/charts/index.yaml
+curl https://gitlab.com/demoplatform/helmcharts/-/raw/main/charts/index.yaml
 
 helm search repo jd_repos
 
