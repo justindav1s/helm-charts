@@ -3,9 +3,9 @@ version: 1.0.12
 appVersion: 1.0.12
 name: microservice
 description: MicroService Helm chart for Kubernetes
-home: https://github.com/justindav1s/helmcharts
+home: https://gitlab.com/demoplatform/helmcharts
 maintainers:
-- email: justindav1s@users.noreply.github.com
-  name: justindav1s
+- email: justinndavis@gmail.com
+  name: justinndavis
 sources:
-- https://github.com/justindav1s/helmcharts
+- https://gitlab.com/demoplatform/helmcharts
