@@ -32,7 +32,7 @@ spec:
       serviceAccountName: {{ .Release.Name }}-sa
       containers:
       - name: {{ .Release.Name }}
-        image: '{{ .Values.image_reg }}/{{ .Values.image_name }}:{{ .Values.image_tag }}'
+        image: '{{ .Values.image_reg }}/{{ .Values.image_name }}:{{ .Values.image_tag }} # { "$imagepolicy": {{ .Release.Namespace }}:{{ .Values.image_name }} }'
         imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.containerport }}
