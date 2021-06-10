@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "spring-boot.fullname" . }}-test-connection"
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: bash-test
+      image: busybox
+      resources:
+        limits:
+            cpu: "1"
+        requests:
+            cpu: "0.5"
+      command:
+        - sh
+        - -c
+        - | 
+          echo "Expecting...hello from {{ if not .Values.springProfilesActive }}default{{ else }}{{ .Values.springProfilesActive }}{{ end }}" &&
+          echo "Got.........$(wget -qO- http://{{ include "spring-boot.fullname" . }}:{{ .Values.service.port }}/hello)" &&
+          test "$(wget -qO- http://{{ include "spring-boot.fullname" . }}:{{ .Values.service.port }}/hello)" = "hello from {{ if not .Values.springProfilesActive }}default{{ else }}{{ .Values.springProfilesActive }}{{ end }}"
+  restartPolicy: Never

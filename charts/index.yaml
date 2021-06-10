@@ -3,7 +3,7 @@ entries:
   microservice:
   - apiVersion: v1
     appVersion: 1.0.14
-    created: "2021-06-08T11:27:02.682031+01:00"
+    created: "2021-06-10T17:37:48.715657+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 648d29d6285936ac7e9dd3fd348b9d5f4ee6d04e60412c90759c4d2a30cb7395
     home: https://gitlab.com/demoplatform/helmcharts
@@ -18,7 +18,7 @@ entries:
     version: 1.0.14
   - apiVersion: v1
     appVersion: 1.0.13
-    created: "2021-06-08T11:27:02.681724+01:00"
+    created: "2021-06-10T17:37:48.71508+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 0d24e2b1c811eefaa814a32d20516aa479f50974cfca8d3effe8fad897430033
     home: https://gitlab.com/demoplatform/helmcharts
@@ -33,7 +33,7 @@ entries:
     version: 1.0.13
   - apiVersion: v1
     appVersion: 1.0.12
-    created: "2021-06-08T11:27:02.681417+01:00"
+    created: "2021-06-10T17:37:48.714411+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: ab1ec0346e52178165e7c4c5cf8180f99d9597932d94663947b9f205294f162a
     home: https://gitlab.com/demoplatform/helmcharts
@@ -46,4 +46,15 @@ entries:
     urls:
     - microservice-1.0.12.tgz
     version: 1.0.12
-generated: "2021-06-08T11:27:02.680953+01:00"
+  spring-boot:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-06-10T17:37:48.716247+01:00"
+    description: A Helm chart for Kubernetes
+    digest: acc18bd090a1b17401a8ff52501cb11552a626ad9f126607dd65867e4d393d8f
+    name: spring-boot
+    type: application
+    urls:
+    - spring-boot-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-06-10T17:37:48.713429+01:00"
