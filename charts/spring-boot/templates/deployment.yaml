@@ -15,8 +15,9 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "spring-boot.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-      {{- if .Values.monitoring }}
       annotations:
+        sidecar.istio.io/inject: "true"    
+      {{- if .Values.monitoring }}
         prometheus.io/scrape: "true"
         prometheus.io/path: "/actuator/prometheus"
         prometheus.io/port:  "8080"

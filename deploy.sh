@@ -3,6 +3,7 @@
 cd charts
 
 helm package microservice
+helm package spring-boot
 helm repo index .
 
 git add ..
