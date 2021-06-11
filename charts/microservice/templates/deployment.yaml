@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.versionlabel }}
   annotations:
     autoimagedeploy: "true"
+    imagepolicy: {{ .Release.Namespace }}:{{ .Values.image_name }}
   labels:
     service: {{ .Release.Name }}
     app: {{ .Values.applabel }}
