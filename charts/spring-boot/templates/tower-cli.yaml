@@ -62,5 +62,4 @@ spec:
       configMap:
         name: {{ include "spring-boot.fullname" . }}-extra-vars-files
   {{- end }}
-  volumes:
   restartPolicy: Never
