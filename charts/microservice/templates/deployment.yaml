@@ -3,8 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-{{ .Values.versionlabel }}
   annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.app: glob:{{ .Values.image_name }}
+    autoimagedeploy: "true"
   labels:
     service: {{ .Release.Name }}
     app: {{ .Values.applabel }}
