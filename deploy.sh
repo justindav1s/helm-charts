@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git pull
+
 cd charts
 
 helm package microservice

@@ -36,3 +36,38 @@ sck: true
 # Set configuration properties.
 config:
   foo: bar
+
+extraVarsFiles:
+  - name: heroes_target.yaml
+    value: |-
+      prometheus_target_service: "heros_app"
+      prometheus_target_env: "dev"
+      prometheus_target_targets:
+        - "kong-heroes-dev.istio.dev1.eks.openshiftlabs.net/actuator/prometheus"
+  - name: heroes_curses_rule.yaml
+    value: |-
+      prometheus_rules_alert_group: "heros_app"
+      prometheus_rules_alert_name: "fight_curses_total"
+      prometheus_rules_alert_expr: "fight_curses_total > 10"
+      prometheus_rules_alert_for: "1m"
+      prometheus_rules_alert_severity: "warning"
+      prometheus_rules_alert_annotation_title: "Example application counter and threshold"
+      prometheus_rules_alert_annotation_description: "Example application counter and threshold"
+  - name: heroes_punches_rule.yaml
+    value: |-
+      prometheus_rules_alert_group: "heros_app"
+      prometheus_rules_alert_name: "fight_punches_total"
+      prometheus_rules_alert_expr: "fight_punches_total > 10"
+      prometheus_rules_alert_for: "1m"
+      prometheus_rules_alert_severity: "warning"
+      prometheus_rules_alert_annotation_title: "Example application counter and threshold"
+      prometheus_rules_alert_annotation_description: "Example application counter and threshold"
+  - name: heroes_kicks_rule.yaml
+    value: |-
+      prometheus_rules_alert_group: "heros_app"
+      prometheus_rules_alert_name: "fight_kicks_total"
+      prometheus_rules_alert_expr: "fight_kicks_total > 10"
+      prometheus_rules_alert_for: "1m"
+      prometheus_rules_alert_severity: "warning"
+      prometheus_rules_alert_annotation_title: "Example application counter and threshold"
+      prometheus_rules_alert_annotation_description: "Example application counter and threshold"

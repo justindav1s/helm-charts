@@ -10,3 +10,17 @@ data:
       application:
         name: {{ include "spring-boot.fullname" . }}
     {{- toYaml .Values.config | nindent 4 }}
+---
+{{- if .Values.extraVarsFiles }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "spring-boot.fullname" . }}-extra-vars-files
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
+data:
+{{- range .Values.extraVarsFiles }}
+  {{- .name | indent 2 }}: |-
+    {{- .value | indent 4 }}
+{{- end }}
+{{- end }}

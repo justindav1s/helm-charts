@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "spring-boot.fullname" . }}-register-prometheus"
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  containers:
+    - name: curl-tower
+      image: redhat/ubi8-minimal
+      env:
+        - name: ANSIBLE_TOWER_DOMAIN
+          value: 'tower.openshiftlabs.net'
+        - name: TOWER_API_ADD_ALERT_RULE
+          value: "25"
+        - name: TOWER_API_DELETE_ALERT_RULE
+          value: "18"
+        - name: TOWER_API_ADD_TARGET
+          value: "19"
+        - name: TOWER_API_DELETE_TARGET
+          value: "20"
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ansible-tower-token
+              key: token
+      resources:
+        limits:
+            cpu: "1"
+        requests:
+            cpu: "0.5"
+      command:
+        - sh
+        - -c
+        - | 
+          set -x
+          microdnf install tar gzip jq
+          cd /opt
+          curl --header "PRIVATE-TOKEN: {{ .Values.gitlab.token }}"  {{ .Values.tower.resources }} -o "repo.tar.gz"
+          tar xf repo.tar.gz -C . --strip-components 1
+          sh scripts/api_job_template_from_file.sh $TOWER_API_ADD_TARGET heros_target.json
+          sh scripts/api_job_template_from_file.sh $TOWER_API_ADD_ALERT_RULE heros_punches_rule.json
+          sh scripts/api_job_template_from_file.sh $TOWER_API_ADD_ALERT_RULE heros_kicks_rule.json
+  restartPolicy: Never

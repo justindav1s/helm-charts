@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  dynamicName: "{{ include "spring-boot.fullname" . }}-register-prometheus"
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
+    # "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  containers:
+    - name: tower-cli
+      image: thatsus/tower-cli
+      env:
+        - name: TOWER_HOSTNAME
+          value: 'tower.openshiftlabs.net'
+        - name: TOWER_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ansible-tower-token
+              key: TOWER_USERNAME
+        - name: TOWER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ansible-tower-token
+              key: TOWER_PASSWORD
+        - name: TOWER_API_ADD_ALERT_RULE
+          value: "25"
+        - name: TOWER_API_ADD_TARGET
+          value: "19"
+      resources:
+        limits:
+            cpu: "1"
+        requests:
+            cpu: "0.5"
+      command:
+        - sh
+        - -c
+        - | 
+          cd /opt/extra_vars_files
+          tower-cli config host $TOWER_HOSTNAME
+          tower-cli config username $TOWER_USERNAME
+          tower-cli config password $TOWER_PASSWORD
+          tower-cli job launch --job-template=$TOWER_API_ADD_TARGET --extra-vars="@heroes_target.yaml" --wait
+          tower-cli job launch --job-template=$TOWER_API_ADD_ALERT_RULE --extra-vars="@heroes_curses_rule.yaml" --wait
+          tower-cli job launch --job-template=$TOWER_API_ADD_ALERT_RULE --extra-vars="@heroes_punches_rule.yaml" --wait
+          tower-cli job launch --job-template=$TOWER_API_ADD_ALERT_RULE --extra-vars="@heroes_kicks_rule.yaml" --wait
+      {{- if .Values.extraVarsFiles }}
+      volumeMounts:
+        {{- range .Values.extraVarsFiles }}
+        - name: config-volume
+          mountPath: /opt/extra_vars_files/{{ .name }}
+          subpath: {{ .name }}
+        {{- end }}
+      {{- end }}
+  {{- if .Values.extraVarsFiles }}
+  volumes:
+    - name: config-volume
+      configMap:
+        name: {{ include "spring-boot.fullname" . }}-extra-vars-files
+  {{- end }}
+  volumes:
+  restartPolicy: Never
