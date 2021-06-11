@@ -1,0 +1,15 @@
+Requires the following secret to be created:
+
+[source,bash]
+----
+cat <<EOF | kubectl apply -f -     
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ansible-tower-creds
+type: Opaque
+stringData:
+  TOWER_USERNAME: # Enter username here
+  TOWER_PASSWORD: # Enter password here
+EOF
+----
