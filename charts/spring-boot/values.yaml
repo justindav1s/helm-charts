@@ -37,6 +37,9 @@ sck: true
 config:
   foo: bar
 
+tower:
+  useOldRolloutMethod: false
+
 extraVarsFiles:
   - name: heroes_target.yaml
     value: |-
