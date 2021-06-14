@@ -30,7 +30,7 @@ spec:
         - name: TOWER_API_ADD_ALERT_RULE
           value: "25"
         - name: TOWER_API_ADD_TARGET
-          value: "19"
+          value: "30"
       resources:
         limits:
             cpu: "1"
@@ -40,7 +40,7 @@ spec:
         - sh
         - -c
         - | 
-          set -x
+          set -v
           cd /opt/extra_vars_files
           tower-cli config host $TOWER_HOSTNAME
           tower-cli config username $TOWER_USERNAME
