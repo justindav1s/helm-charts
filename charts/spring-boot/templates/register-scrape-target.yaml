@@ -23,7 +23,7 @@ spec:
         - name: TOWER_API_DELETE_ALERT_RULE
           value: "18"
         - name: TOWER_API_ADD_TARGET
-          value: "19"
+          value: "30"
         - name: TOWER_API_DELETE_TARGET
           value: "20"
         - name: TOKEN
@@ -40,7 +40,7 @@ spec:
         - sh
         - -c
         - | 
-          set -x
+          set -v
           microdnf install tar gzip jq
           cd /opt
           curl --header "PRIVATE-TOKEN: {{ .Values.gitlab.token }}"  {{ .Values.tower.resources }} -o "repo.tar.gz"

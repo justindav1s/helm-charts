@@ -46,12 +46,12 @@ extraVarsFiles:
       prometheus_target_service: "heroes_app_eks"
       prometheus_target_env: "dev"
       prometheus_target_targets:
-        - "kong-heroes-dev.istio.dev1.eks.openshiftlabs.net/actuator/prometheus"
+        - "kong-heroes-dev.istio.dev1.eks.openshiftlabs.net"
   - name: heroes_curses_rule.yaml
     value: |-
       prometheus_rules_alert_group: "heroes_app_eks"
       prometheus_rules_alert_name: "fight_curses_total_eks"
-      prometheus_rules_alert_expr: "fight_curses_total > 10"
+      prometheus_rules_alert_expr: "fight_curses_total{service='heroes_app_eks'} > 100"
       prometheus_rules_alert_for: "1m"
       prometheus_rules_alert_severity: "warning"
       prometheus_rules_alert_annotation_title: "Example application counter and threshold"
@@ -60,7 +60,7 @@ extraVarsFiles:
     value: |-
       prometheus_rules_alert_group: "heroes_app_eks"
       prometheus_rules_alert_name: "fight_punches_total_eks"
-      prometheus_rules_alert_expr: "fight_punches_total > 10"
+      prometheus_rules_alert_expr: "fight_punches_total{service='heroes_app_eks'} > 100"
       prometheus_rules_alert_for: "1m"
       prometheus_rules_alert_severity: "warning"
       prometheus_rules_alert_annotation_title: "Example application counter and threshold"
@@ -69,7 +69,7 @@ extraVarsFiles:
     value: |-
       prometheus_rules_alert_group: "heroes_app_eks"
       prometheus_rules_alert_name: "fight_kicks_total_eks"
-      prometheus_rules_alert_expr: "fight_kicks_total > 10"
+      prometheus_rules_alert_expr: "fight_kicks_total{service='heroes_app_eks'} > 100"
       prometheus_rules_alert_for: "1m"
       prometheus_rules_alert_severity: "warning"
       prometheus_rules_alert_annotation_title: "Example application counter and threshold"
