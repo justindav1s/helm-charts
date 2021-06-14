@@ -3,13 +3,9 @@ entries:
   microservice:
   - apiVersion: v1
     appVersion: 1.0.17
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.356967+01:00"
-=======
-    created: "2021-06-14T19:10:31.090803+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.994737+01:00"
     description: MicroService Helm chart for Kubernetes
-    digest: e1ceef9af6bdd0bc45a16ed7f453ce8d918c5fafc91019066988f8a069a42362
+    digest: d44bb0be191bb9848c98b49331bc3afef67b2facb47b0202c6d2acb4ec4abc2d
     home: https://gitlab.com/demoplatform/helmcharts
     maintainers:
     - email: justinndavis@gmail.com
@@ -22,11 +18,7 @@ entries:
     version: 1.0.17
   - apiVersion: v1
     appVersion: 1.0.16
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.356092+01:00"
-=======
-    created: "2021-06-14T19:10:31.090161+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.994055+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: e1917e4422f4dc0e901de263d94e050dad969527ea732a41610abbc8054190ef
     home: https://gitlab.com/demoplatform/helmcharts
@@ -41,11 +33,7 @@ entries:
     version: 1.0.16
   - apiVersion: v1
     appVersion: 1.0.15
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.354834+01:00"
-=======
-    created: "2021-06-14T19:10:31.089083+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.992984+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 1d5ec5a1769bb1940e032f2f192462a2c589c98b8a31ff99556c373f50d7cfca
     home: https://gitlab.com/demoplatform/helmcharts
@@ -60,11 +48,7 @@ entries:
     version: 1.0.15
   - apiVersion: v1
     appVersion: 1.0.14
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.353843+01:00"
-=======
-    created: "2021-06-14T19:10:31.087305+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.991832+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 898229e7c44062268f248445cc00a0417801619129de6985fa4f8663f38e9c22
     home: https://gitlab.com/demoplatform/helmcharts
@@ -79,11 +63,7 @@ entries:
     version: 1.0.14
   - apiVersion: v1
     appVersion: 1.0.13
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.35281+01:00"
-=======
-    created: "2021-06-14T19:10:31.086091+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.990769+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 0d24e2b1c811eefaa814a32d20516aa479f50974cfca8d3effe8fad897430033
     home: https://gitlab.com/demoplatform/helmcharts
@@ -98,11 +78,7 @@ entries:
     version: 1.0.13
   - apiVersion: v1
     appVersion: 1.0.12
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.347389+01:00"
-=======
-    created: "2021-06-14T19:10:31.084808+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.989472+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: ab1ec0346e52178165e7c4c5cf8180f99d9597932d94663947b9f205294f162a
     home: https://gitlab.com/demoplatform/helmcharts
@@ -118,15 +94,19 @@ entries:
   spring-boot:
   - apiVersion: v2
     appVersion: 0.0.1
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.362938+01:00"
+    created: "2021-06-14T19:45:11.006453+01:00"
+    description: A Helm chart for Spring Boot on Kubernetes
+    digest: 19dca415d21a4b04498b8222c4ffc6f42cfcfbf1dbadb4b30f8290e418d467ee
+    name: spring-boot
+    type: application
+    urls:
+    - spring-boot-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2021-06-14T19:45:11.005461+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 4b6499d1e23154da55a4d4ba06bed6c2a6e8ae00d9de73919cbdcbc93c318324
-=======
-    created: "2021-06-14T19:10:31.098724+01:00"
-    description: A Helm chart for Spring Boot on Kubernetes
-    digest: 9b06818b40045056d24f01a56000c2c34cb4fa352caf7e619f46354a96f63fac
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
     name: spring-boot
     type: application
     urls:
@@ -134,11 +114,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 0.0.1
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.36186+01:00"
-=======
-    created: "2021-06-14T19:10:31.097641+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:11.003289+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 1d0ad6dec08c74684ed04c8e88abfc02cc8368ec8f09e0611770344aab0995d9
     name: spring-boot
@@ -148,11 +124,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.360093+01:00"
-=======
-    created: "2021-06-14T19:10:31.095635+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:11.000648+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 4928e9911133a552018cde0366f8b7aae962e18cb7289c8e95bcc1b92f9f2518
     name: spring-boot
@@ -162,11 +134,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.0
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.359056+01:00"
-=======
-    created: "2021-06-14T19:10:31.094124+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.997361+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 7cd6fc3b3f7c15f0c1c347504a16ef9c379a45b4c0bf6f41a67f93f8d1077969
     name: spring-boot
@@ -176,11 +144,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
-<<<<<<< HEAD
-    created: "2021-06-14T19:25:04.358106+01:00"
-=======
-    created: "2021-06-14T19:10:31.092284+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+    created: "2021-06-14T19:45:10.996043+01:00"
     description: A Helm chart for Kubernetes
     digest: acc18bd090a1b17401a8ff52501cb11552a626ad9f126607dd65867e4d393d8f
     name: spring-boot
@@ -188,8 +152,4 @@ entries:
     urls:
     - spring-boot-0.1.0.tgz
     version: 0.1.0
-<<<<<<< HEAD
-generated: "2021-06-14T19:25:04.344612+01:00"
-=======
-generated: "2021-06-14T19:10:31.083614+01:00"
->>>>>>> 321c2c6bc5a00f14fa79f67f3e1fd09fbbaa61ee
+generated: "2021-06-14T19:45:10.987675+01:00"

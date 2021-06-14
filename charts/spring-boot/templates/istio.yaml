@@ -3,6 +3,8 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   name: default
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 spec:
   mtls:
     mode: STRICT
@@ -11,6 +13,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: {{ include "spring-boot.fullname" . }}-gateway
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 spec:
   selector:
     istio: ingressgateway
@@ -35,6 +39,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: {{ include "spring-boot.fullname" . }}-vs
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 spec:
   hosts:
     - {{ include "spring-boot.fullname" . }}.istio.dev1.eks.openshiftlabs.net  

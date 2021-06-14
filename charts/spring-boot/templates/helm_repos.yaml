@@ -2,6 +2,8 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: {{ include "spring-boot.fullname" . }}-helm-repo
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 spec:
   interval: 1m
   url: https://gitlab.com/demoplatform/helmcharts/-/raw/main/charts/

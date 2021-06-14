@@ -7,6 +7,8 @@ metadata:
     kubernetes.io/ingress.class: kong
     konghq.com/override: {{ include "spring-boot.fullname" . }}-kongingress
     configuration.konghq.com: {{ include "spring-boot.fullname" . }}-kongingress
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 spec:
   rules:
     - host: {{ include "spring-boot.fullname" . }}.istio.dev1.eks.openshiftlabs.net
@@ -31,6 +33,8 @@ apiVersion: configuration.konghq.com/v1
 kind: KongIngress
 metadata:
   name: {{ include "spring-boot.fullname" . }}-kongingress
+  labels:
+    {{- include "spring-boot.labels" . | nindent 4 }}
 route:
   preserve_host: false
 upstream:
