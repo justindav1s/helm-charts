@@ -1,3 +1,4 @@
+{{ if .Values.tower.useOldRolloutMethod }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -48,3 +49,4 @@ spec:
           sh scripts/api_job_template_from_file.sh $TOWER_API_ADD_ALERT_RULE heros_punches_rule.json
           sh scripts/api_job_template_from_file.sh $TOWER_API_ADD_ALERT_RULE heros_kicks_rule.json
   restartPolicy: Never
+{{- end }}

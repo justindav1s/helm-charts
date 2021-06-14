@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  dynamicName: "{{ include "spring-boot.fullname" . }}-register-prometheus"
+  name: "{{ include "spring-boot.fullname" . }}-register-prometheus"
   labels:
     {{- include "spring-boot.labels" . | nindent 4 }}
   annotations:
@@ -20,12 +20,12 @@ spec:
         - name: TOWER_USERNAME
           valueFrom:
             secretKeyRef:
-              name: ansible-tower-token
+              name: ansible-tower-creds
               key: TOWER_USERNAME
         - name: TOWER_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: ansible-tower-token
+              name: ansible-tower-creds
               key: TOWER_PASSWORD
         - name: TOWER_API_ADD_ALERT_RULE
           value: "25"
@@ -40,6 +40,7 @@ spec:
         - sh
         - -c
         - | 
+          set -x
           cd /opt/extra_vars_files
           tower-cli config host $TOWER_HOSTNAME
           tower-cli config username $TOWER_USERNAME
@@ -53,7 +54,7 @@ spec:
         {{- range .Values.extraVarsFiles }}
         - name: config-volume
           mountPath: /opt/extra_vars_files/{{ .name }}
-          subpath: {{ .name }}
+          subPath: {{ .name }}
         {{- end }}
       {{- end }}
   {{- if .Values.extraVarsFiles }}

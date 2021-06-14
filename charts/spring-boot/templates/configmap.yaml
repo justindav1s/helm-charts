@@ -20,7 +20,7 @@ metadata:
     {{- include "spring-boot.labels" . | nindent 4 }}
 data:
 {{- range .Values.extraVarsFiles }}
-  {{- .name | indent 2 }}: |-
-    {{- .value | indent 4 }}
-{{- end }}
+{{ .name | indent 2 }}: |-
+{{ .value | indent 4 }}
+{{ end }}
 {{- end }}
