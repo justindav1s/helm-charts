@@ -1,3 +1,4 @@
+{{- if .Values.extraVarsFiles }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -9,7 +10,7 @@ metadata:
     # job is considered part of the release.
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "0"
-    # "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-delete-policy": hook-succeeded
 spec:
   containers:
     - name: tower-cli
@@ -64,3 +65,4 @@ spec:
         name: {{ include "spring-boot.fullname" . }}-extra-vars-files
   {{- end }}
   restartPolicy: Never
+{{- end }}

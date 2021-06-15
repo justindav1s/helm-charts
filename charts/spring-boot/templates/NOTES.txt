@@ -1,8 +1,2 @@
-{{- if .Values.ingress.enabled }}
 1. The application endpoint is:
-{{- range $host := .Values.ingress.hosts }}
-  {{- range .paths }}
-  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}.{{ $.Values.ingressBase }}{{ . }}
-  {{- end }}
-{{- end }}
-{{- end }}
+  https://{{ .Release.Name }}-{{ .Chart.Name }}.istio.dev1.eks.openshiftlabs.net
