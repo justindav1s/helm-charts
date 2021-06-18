@@ -6,6 +6,13 @@ cd charts
 
 helm package microservice
 helm package spring-boot
+helm package istio-base
+helm package istio-cni
+helm package istio-control
+helm package istio-gateways
+helm package istio-operator
+helm package istio-remote
+
 helm repo index .
 
 git add ..
