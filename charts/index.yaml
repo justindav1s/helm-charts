@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   base:
   - apiVersion: v1
-    created: "2021-06-18T10:35:08.979132+01:00"
+    created: "2021-06-18T10:38:01.095802+01:00"
     description: Helm chart for deploying Istio cluster resources and CRDs
-    digest: d76d6a68d90859f117b0e6d8fababff2fe2fa729ba191fe0850c679e2996fc7b
+    digest: adb24956b75aa37c93ce0c84de3383783a1c0aa87045490d322b703c47468996
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
     - istio
@@ -16,9 +16,9 @@ entries:
     version: 1.1.0
   istio-cni:
   - apiVersion: v1
-    created: "2021-06-18T10:35:08.98026+01:00"
+    created: "2021-06-18T10:38:01.096227+01:00"
     description: Helm chart for istio-cni components
-    digest: 923dcddc32066b2a9b1131df7707eb2d59d8865580b91b5533483a9da1601667
+    digest: 7da3c0739b7ec5ffae879c7f929e0d5a627ca40cf095edcad24cd305a17b0f84
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
     - istio-cni
@@ -31,9 +31,9 @@ entries:
     version: 1.1.0
   istio-discovery:
   - apiVersion: v1
-    created: "2021-06-18T10:35:08.982316+01:00"
+    created: "2021-06-18T10:38:01.09849+01:00"
     description: Helm chart for istio control plane
-    digest: 07df61d623a5489cfb007b9b2c2820390ca1bf2d9f46a8ffbce49b6e84e7fab4
+    digest: 5c5a2d34ee412522243fa8d427eb81bf337393e9b9305f1527161b6cf6c9f35e
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
     - istio
@@ -47,9 +47,9 @@ entries:
     version: 1.2.0
   istio-ingress:
   - apiVersion: v1
-    created: "2021-06-18T10:35:08.983393+01:00"
+    created: "2021-06-18T10:38:01.099394+01:00"
     description: Helm chart for deploying Istio gateways
-    digest: 2ef4c854f8722b385bdfa2b0837d5f1153243136193dfb2272c86fcc086401f0
+    digest: be92248ce9d7eab969bf6b17a1958606c1088ec1798a4ffadded3feef99202fb
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
     - istio
@@ -63,9 +63,9 @@ entries:
     version: 1.1.0
   istio-operator:
   - apiVersion: v1
-    created: "2021-06-18T10:35:08.983769+01:00"
+    created: "2021-06-18T10:38:01.099754+01:00"
     description: Helm chart for deploying Istio operator
-    digest: 70c8e68b732cfb88db91bc03811741b044d91215895dfc39c5a1eeec87844ed0
+    digest: a016c3b5c4193b710a52d498f868dd860e87c1fd20c72028482ed01ebeaeb7e3
     icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
     - istio
@@ -79,9 +79,9 @@ entries:
   microservice:
   - apiVersion: v1
     appVersion: 1.0.17
-    created: "2021-06-18T10:35:08.985694+01:00"
+    created: "2021-06-18T10:38:01.101533+01:00"
     description: MicroService Helm chart for Kubernetes
-    digest: 52b780bc5e42f1926bb3a64ced3671b14bb5722dc7f8e2b7c2d00bf44b51fae0
+    digest: 88fdd6600962a7f550ff7c66515ac2eef93089afefc99b8baea3c26f8cd9ce73
     home: https://gitlab.com/demoplatform/helmcharts
     maintainers:
     - email: justinndavis@gmail.com
@@ -94,7 +94,7 @@ entries:
     version: 1.0.17
   - apiVersion: v1
     appVersion: 1.0.16
-    created: "2021-06-18T10:35:08.985358+01:00"
+    created: "2021-06-18T10:38:01.101239+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: e1917e4422f4dc0e901de263d94e050dad969527ea732a41610abbc8054190ef
     home: https://gitlab.com/demoplatform/helmcharts
@@ -109,7 +109,7 @@ entries:
     version: 1.0.16
   - apiVersion: v1
     appVersion: 1.0.15
-    created: "2021-06-18T10:35:08.985057+01:00"
+    created: "2021-06-18T10:38:01.100951+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 1d5ec5a1769bb1940e032f2f192462a2c589c98b8a31ff99556c373f50d7cfca
     home: https://gitlab.com/demoplatform/helmcharts
@@ -124,7 +124,7 @@ entries:
     version: 1.0.15
   - apiVersion: v1
     appVersion: 1.0.14
-    created: "2021-06-18T10:35:08.984736+01:00"
+    created: "2021-06-18T10:38:01.100661+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 898229e7c44062268f248445cc00a0417801619129de6985fa4f8663f38e9c22
     home: https://gitlab.com/demoplatform/helmcharts
@@ -139,7 +139,7 @@ entries:
     version: 1.0.14
   - apiVersion: v1
     appVersion: 1.0.13
-    created: "2021-06-18T10:35:08.984439+01:00"
+    created: "2021-06-18T10:38:01.10037+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: 0d24e2b1c811eefaa814a32d20516aa479f50974cfca8d3effe8fad897430033
     home: https://gitlab.com/demoplatform/helmcharts
@@ -154,7 +154,7 @@ entries:
     version: 1.0.13
   - apiVersion: v1
     appVersion: 1.0.12
-    created: "2021-06-18T10:35:08.984126+01:00"
+    created: "2021-06-18T10:38:01.100064+01:00"
     description: MicroService Helm chart for Kubernetes
     digest: ab1ec0346e52178165e7c4c5cf8180f99d9597932d94663947b9f205294f162a
     home: https://gitlab.com/demoplatform/helmcharts
@@ -170,9 +170,9 @@ entries:
   spring-boot:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2021-06-18T10:35:08.987885+01:00"
+    created: "2021-06-18T10:38:01.103626+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
-    digest: 7fc3caaf774a7fe644899b69749cb040a55e3043ba47a8840939755e05ef0b57
+    digest: 48ad4656bf95c89c7ea972e008a6134c16ab8c2427d793e96ba3bbc186e35c08
     name: spring-boot
     type: application
     urls:
@@ -180,7 +180,7 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2021-06-18T10:35:08.987375+01:00"
+    created: "2021-06-18T10:38:01.103123+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 19dca415d21a4b04498b8222c4ffc6f42cfcfbf1dbadb4b30f8290e418d467ee
     name: spring-boot
@@ -190,7 +190,7 @@ entries:
     version: 1.1.1
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2021-06-18T10:35:08.986834+01:00"
+    created: "2021-06-18T10:38:01.102559+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 4b6499d1e23154da55a4d4ba06bed6c2a6e8ae00d9de73919cbdcbc93c318324
     name: spring-boot
@@ -200,7 +200,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2021-06-18T10:35:08.986274+01:00"
+    created: "2021-06-18T10:38:01.102039+01:00"
     description: A Helm chart for Spring Boot on Kubernetes
     digest: 1d0ad6dec08c74684ed04c8e88abfc02cc8368ec8f09e0611770344aab0995d9
     name: spring-boot
@@ -208,4 +208,4 @@ entries:
     urls:
     - spring-boot-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-18T10:35:08.976923+01:00"
+generated: "2021-06-18T10:38:01.093681+01:00"
