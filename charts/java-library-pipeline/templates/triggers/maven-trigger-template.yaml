@@ -1,0 +1,63 @@
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: {{ .Values.name }}-maven-trigger-template
+spec:
+  params:
+    - name: git-revision
+      description: The git revision
+      default: main
+    - name: git-ref
+      description: The full git ref
+      default: main
+    - name: git-repo-name
+      description: The name of the deployment to be created / patched
+    - name: git-branch
+      description: The git branch name
+    - name: git-sha
+      description: The git commit sha
+  resourcetemplates:
+    # for triggering maven pipeline
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: $(tt.params.git-repo-name)-
+        labels:
+          tekton.dev/pipeline: {{ .Values.name }}
+          git.branch: $(tt.params.git-branch)
+          git.revision: $(tt.params.git-revision)
+          git.sha: $(tt.params.git-sha)
+        annotations:
+          argocd.argoproj.io/sync-options: Prune=false
+          argocd.argoproj.io/compare-options: IgnoreExtraneous
+      spec:
+        serviceAccountName: {{ .Values.name }}-sa
+        pipelineRef:
+          name: {{ .Values.name }}
+        params:
+          - name: APPLICATION_NAME
+            value: $(tt.params.git-repo-name)
+          - name: GIT_URL
+            value: https://github.com/justindav1s/$(tt.params.git-repo-name).git
+          - name: GIT_REVISION
+            value: $(tt.params.git-revision)
+          - name: GIT_REF
+            value: $(tt.params.git-ref)
+          - name: GIT_BRANCH
+            value: $(tt.params.git-branch)
+          - name: GIT_SHA
+            value: $(tt.params.git-sha)
+        workspaces:
+        - name: shared-workspace
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 750Mi
+              storageClassName: managed-premium
+        - name: maven-settings
+          configmap:
+            name: {{ .Values.name }}-maven-settings

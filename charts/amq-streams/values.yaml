@@ -1,0 +1,19 @@
+route: true
+namespace: labs-dev
+#Values for Kafka broker and zookeeper
+kafka:
+  cluster_name: wc-dev-kafka-cluster
+  broker:
+    replicas: 3
+  storage:
+    size: 30Gi
+  zookeeper:
+    replicas: 3
+    storage:
+      size: 10Gi
+
+#Values for Kafka topics
+topics:
+
+# Values for Kafka users
+users:

@@ -1,0 +1,6 @@
+apiVersion: v2
+description: TektonConfig
+name: tektonconfig
+sources:
+- https://tekton.dev/docs/operator/tektonconfig/
+version: 0.0.1

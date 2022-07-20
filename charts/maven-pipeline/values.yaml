@@ -1,0 +1,3 @@
+name: your-application-name-here
+service_name: your-service-name
+gitops_repo: residency-gitops

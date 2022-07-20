@@ -1,0 +1,41 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: {{ .Values.name }}-get-gav-version
+spec:
+  workspaces:
+    - name: output
+  params:
+    - name: WORK_DIRECTORY
+      description: Directory to start build in (handle multiple branches)
+      type: string
+  results:
+    - name: GAV_GROUP_ID
+      description: Java Group id
+    - name: GAV_ARTIFACT_ID
+      description: Java Artifact id
+    - name: GAV_VERSION
+      description: Java Artifact version
+  steps:
+    - name: release-helm-chart
+      image: registry.access.redhat.com/ubi8/openjdk-17:latest
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      script: |
+        #!/bin/bash
+        groupId=$(grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.groupId" 2>/dev/null)  | tail -1)
+        echo -n `grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.groupId" 2>/dev/null) | tail -1` | tee $(results.GAV_GROUP_ID.path);
+        artifactId=$(grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.artifactId" 2>/dev/null)| tail -1)
+        echo -n `grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.artifactId" 2>/dev/null) | tail -1` | tee $(results.GAV_ARTIFACT_ID.path);
+        version=$(grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.version" 2>/dev/null) | tail -1)
+        echo -n `grep -v '\[' <( mvn  -s $(workspaces.maven-settings.path)/settings.xml help:evaluate -Dexpression="project.version" 2>/dev/null) | tail -1` | tee $(results.GAV_VERSION.path);
+        echo "==========================================================="
+        echo $groupId:$artifactId:$version
+        echo "==========================================================="
+  workspaces:
+    - name: output
+      description: The workspace consisting of maven project.
+    - name: maven-settings
+      description: >-
+        The workspace consisting of the custom maven settings provided by the
+        user.

@@ -1,0 +1,71 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    service-name: {{ .Values.service_name }}
+spec:
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+    - name: sonar-credentials
+  params:
+  - name: APPLICATION_NAME
+    type: string
+    default: ""
+  - name: GIT_URL
+    type: string
+    default: ""
+  - name: GIT_REVISION
+    type: string
+    default: "main"
+  - name: GIT_REF
+    type: string
+    default: "refs/heads/main"
+  - name: GIT_BRANCH
+    type: string
+    default: ""
+  - name: GIT_SHA
+    type: string
+    default: ""
+  tasks:
+    - name: fetch-app-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: "$(params.GIT_URL)"
+        - name: revision
+          value: "main"
+        - name: subdirectory
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+        - name: deleteExisting
+          value: "true"
+    - name: sonarscan
+      taskRef:
+        name: maven
+        kind: ClusterTask
+      runAfter:
+         - fetch-app-repository
+      params:
+        - name: MAVEN_IMAGE
+          value: "registry.access.redhat.com/ubi8/openjdk-17:latest"
+        - name: GOALS
+          value:
+            - "-Dsonar.host.url=sonarqube-sonarqube.labs-ci-cd.svc.cluster.local:9000"
+            - "-B"
+            - "org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar"
+        - name: CONTEXT_DIR
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+        - name: sonar-credentials
+          workspace: sonar-credentials

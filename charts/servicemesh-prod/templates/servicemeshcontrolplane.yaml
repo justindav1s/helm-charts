@@ -1,0 +1,59 @@
+---
+apiVersion: maistra.io/v2
+kind: ServiceMeshControlPlane
+metadata:
+  name: prod-mesh
+spec:
+  security:
+    controlPlane:
+      mtls: true
+    dataPlane:
+      mtls: true
+      automtls: true
+  tracing:
+    sampling: 100
+    type: Jaeger
+  general:
+    logging:
+      logAsJSON: true
+  profiles:
+    - default
+  proxy:
+    accessLogging:
+      file:
+        name: /dev/stdout
+    networking:
+      trafficControl:
+        inbound: {}
+        outbound:
+          policy: ALLOW_ANY
+  policy:
+    type: Istiod
+  addons:
+    grafana:
+      enabled: true
+    jaeger:
+      install:
+        storage:
+          type: Memory
+    kiali:
+      enabled: false
+    prometheus:
+      enabled: false
+  runtime:
+    components:
+      pilot:
+        deployment:
+          autoScaling:
+            enabled: true
+            maxReplicas: 1
+            minReplicas: 1
+        pod:
+          metadata:
+            annotations:
+              ad.datadoghq.com/discovery.check_names: '["istio"]'
+              ad.datadoghq.com/discovery.init_configs: '[{}]'
+              ad.datadoghq.com/discovery.instances: '[{"istiod_endpoint": "http://%%host%%:15014/metrics", "use_openmetrics": true }]'      
+  version: v2.1
+  telemetry:
+    type: Istiod

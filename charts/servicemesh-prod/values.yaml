@@ -1,0 +1,5 @@
+---
+memberrolls:
+  - namespace: labs-test
+  - namespace: labs-preprod
+  - namespace: datadog

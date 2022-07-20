@@ -1,0 +1,119 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    service-name: {{ .Values.service_name }}
+spec:
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+  params:
+  - name: APPLICATION_NAME
+    type: string
+    default: ""
+  - name: GIT_URL
+    type: string
+    default: ""
+  - name: GIT_REVISION
+    type: string
+    default: "main"
+  - name: GIT_REF
+    type: string
+    default: "refs/heads/main"
+  - name: GIT_BRANCH
+    type: string
+    default: ""
+  tasks:
+    - name: fetch-app-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: "$(params.GIT_URL)"
+        - name: revision
+          value: "main"
+        - name: subdirectory
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+        - name: deleteExisting
+          value: "true"
+    - name: get-gav-version
+      taskRef:
+        name: get-gav-version
+        kind: ClusterTask
+      runAfter:
+        - fetch-app-repository
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: WORK_DIRECTORY
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+    - name: maven
+      taskRef:
+        name: maven
+        kind: ClusterTask
+      runAfter:
+        - get-gav-version
+      params:
+        - name: MAVEN_IMAGE
+          value: "registry.access.redhat.com/ubi8/openjdk-17:latest"
+        - name: GOALS
+          value:
+            - "-U"
+            - "-B"
+            - "-q"
+            - "package"
+        - name: CONTEXT_DIR
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: deploy-to-github-packages
+      taskRef:
+        name: maven
+        kind: ClusterTask
+      runAfter:
+         - maven
+      params:
+        - name: MAVEN_IMAGE
+          value: "registry.access.redhat.com/ubi8/openjdk-17:latest"
+        - name: GOALS
+          value:        
+            - "-DgroupId=$(tasks.get-gav-version.results.GAV_GROUP_ID)"
+            - "-DartifactId=$(tasks.get-gav-version.results.GAV_ARTIFACT_ID)"
+            - "-Dversion=$(tasks.get-gav-version.results.GAV_VERSION)"
+            - "-Dpackaging={{ .Values.packaging }}"
+            - "-Dfile=target/$(tasks.get-gav-version.results.GAV_ARTIFACT_ID)-$(tasks.get-gav-version.results.GAV_VERSION).{{ .Values.packaging }}"
+            - "-DrepositoryId={{ .Values.git_repository_name }}"
+            - "-Durl={{ .Values.git_repository_url}}"
+            - "deploy:deploy-file"  
+            - "-Drepo.login=$(cat /tekton/creds-secrets/git-auth/username)"
+            - "-Drepo.pwd=$(cat /tekton/creds-secrets/git-auth/password)"      
+        - name: CONTEXT_DIR
+          value: "$(params.APPLICATION_NAME)/$(params.GIT_BRANCH)"         
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace          
+
+  results:
+    - name: GAV_GROUP_ID
+      description: Artifact Group Id of the application
+      value: "$(tasks.get-gav-version.results.GAV_GROUP_ID)"
+    - name: GAV_ARTIFACT_ID
+      description: Artifact Id of the helm chart
+      value: "$(tasks.get-gav-version.results.GAV_ARTIFACT_ID)"
+    - name: GAV_VERSION
+      description: Artifact Version of the application
+      value: "$(tasks.get-gav-version.results.GAV_VERSION)"

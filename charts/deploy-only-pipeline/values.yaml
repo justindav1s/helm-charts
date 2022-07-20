@@ -1,0 +1,10 @@
+name: your-application-name-here
+service_name: your-service-name
+group_id: artifact-to-deploy-groupid
+artifact_id: artifact-to-deploy-artifactid
+version: artifact-to-deploy-version
+packaging: artifact-to-deploy-packaging
+file_location: artifact-to-deploy-file-location
+git_repository_name: artifact-to-deploy-in-git-repository-name
+git_repository_url: artifact-to-deploy-in-git-repository-url
+

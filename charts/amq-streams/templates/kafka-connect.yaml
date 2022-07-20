@@ -1,0 +1,33 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  annotations:
+    strimzi.io/use-connector-resources: 'true'
+  name: {{ .Values.kafka.cluster_name }}-connect
+spec:
+  bootstrapServers: {{ .Values.kafka.cluster_name }}-kafka-bootstrap:9093
+  # build:
+  #   output:
+  #     image: >-
+  #       image-registry.openshift-image-registry.svc:5000/{{ .Values.namespace }}/{{ .Values.kafka.cluster_name }}-connect:latest
+  #     type: docker
+  #   plugins:
+  #     - artifacts:
+  #         - type: tgz
+  #           url: >-
+  #             https://maven.repository.redhat.com/earlyaccess/all/org/apache/camel/kafkaconnector/camel-elasticsearch-rest-kafka-connector/0.7.1.fuse-800004-redhat-00001/camel-elasticsearch-rest-kafka-connector-0.7.1.fuse-800004-redhat-00001-package.tar.gz
+  #         - type: jar
+  #           url: https://maven.repository.redhat.com/ga/all/org/apache/logging/log4j/log4j-api/2.8.2.redhat-1/log4j-api-2.8.2.redhat-1.jar
+  #         - type: jar
+  #           url: https://maven.repository.redhat.com/ga/all/org/apache/logging/log4j/log4j-core/2.8.2.redhat-1/log4j-core-2.8.2.redhat-1.jar
+  #       name: camel-elasticsearch
+  config:
+    key.converter.schemas.enable: false
+    value.converter.schemas.enable: false
+  replicas: 1
+  tls:
+    trustedCertificates:
+      - certificate: ca.crt
+        secretName: {{ .Values.kafka.cluster_name }}-cluster-ca-cert
+  version: 3.1.0

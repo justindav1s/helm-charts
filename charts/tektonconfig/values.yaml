@@ -1,0 +1,4 @@
+---
+pruner:
+  keep: 15
+  schedule: '*/45 * * * *'

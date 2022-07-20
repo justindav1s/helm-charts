@@ -1,0 +1,7 @@
+
+apiVersion: v2 #helm v3
+appVersion: v1.0.0
+description: A Helm chart for clustertasks that can be consumed by tekton pipelines
+name: clustertasks
+version: 1.0.3
+

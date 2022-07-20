@@ -1,0 +1,9 @@
+apiVersion: v2
+name: amq-streams
+description: A Helm chart for Kafka (amq-streams)
+type: application
+# This is the chart version. This version number should be incremented each time you make changes
+version: 1.0.2
+# This is the version number of the kafka being deployed. This version number should be
+appVersion: 2.1.0-4
+

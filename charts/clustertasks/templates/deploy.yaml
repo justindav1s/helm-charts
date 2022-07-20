@@ -1,0 +1,69 @@
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: {{ .Values.name }}-deploy
+spec:
+  workspaces:
+    - name: output
+  params:
+    - name: APPLICATION_NAME
+      description: Name of the application
+      type: string
+    - name: WORK_DIRECTORY
+      description: Directory to start build in (handle multiple branches)
+      type: string
+    - name: VERSION
+      description: Version of the application
+      type: string
+      default: latest
+    - name: CHART_VERSION
+      description: Version of the helm chart
+      type: string
+    - name: DEPLOY_ENVIRONMENT
+      description: Environment to deploy to
+      type: string
+    - name: GITOPS_CONFIG_REPOSITORY_NAME
+      description: Repository for the argoCD definition
+      type: string
+    - name: GITOPS_SERVICE_DIRECTORY
+      description: Directory name where we keep the Argo CD App List
+      type: string
+  results:
+    - name: PREVIOUS_VERSION
+      description: Currently running version of the application
+    - name: PREVIOUS_CHART_VERSION
+      description: Currently running helm chart version of the helm chart
+  steps:
+    - name: get-current-info
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      image: quay.io/redhat-cop/tekton-task-helm:3.6.3
+      script: |
+        PREVIOUS_VERSION=$(yq eval .applications."$(params.APPLICATION_NAME)".values.image.version "$(params.GITOPS_SERVICE_DIRECTORY)/$(params.DEPLOY_ENVIRONMENT)/values.yaml")
+        PREVIOUS_CHART_VERSION=$(yq eval .applications."$(params.APPLICATION_NAME)".source_ref "$(params.GITOPS_SERVICE_DIRECTORY)/$(params.DEPLOY_ENVIRONMENT)/values.yaml")
+        echo -n ${PREVIOUS_VERSION} | tee $(results.PREVIOUS_VERSION.path)
+        echo -n ${PREVIOUS_CHART_VERSION} | tee $(results.PREVIOUS_CHART_VERSION.path)
+    - name: patch-argo-conf
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      image: quay.io/redhat-cop/tekton-task-helm:3.6.3
+      script: |
+        #!/bin/sh
+        yq eval -i .applications."$(params.APPLICATION_NAME)".source_ref=\"$(params.CHART_VERSION)\"  "$(params.GITOPS_SERVICE_DIRECTORY)/$(params.DEPLOY_ENVIRONMENT)/values.yaml"
+        yq eval -i .applications."$(params.APPLICATION_NAME)".values.image.version=\"$(params.VERSION)\" "$(params.GITOPS_SERVICE_DIRECTORY)/$(params.DEPLOY_ENVIRONMENT)/values.yaml"
+    - name: commit-changes
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      image: quay.io/redhat-cop/ubi8-git:latest
+      script: |
+        #!/bin/sh
+        # Commit the changes :P
+        git config user.email "tekton@rht-labs.bot.com"
+        git config user.name "🐈 Tekton the Peaceful Cat 🐈"
+        git config push.default simple
+        git checkout main
+        git add $(params.GITOPS_SERVICE_DIRECTORY)/$(params.DEPLOY_ENVIRONMENT)/values.yaml
+        git commit -m "🚀 AUTOMATED COMMIT - Deployment of $(params.APPLICATION_NAME) at version $(params.VERSION) 🚀" || rc=$?
+        git remote set-url origin $(cat /tekton/creds/.git-credentials)/$(params.GITOPS_CONFIG_REPOSITORY_NAME).git
+        git pull --rebase
+        git push -u origin main
+

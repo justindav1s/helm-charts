@@ -1,0 +1,6 @@
+name: your-application-name-here
+packaging: artifact-to-deploy-packaging
+file_location: artifact-to-deploy-file-location
+git_repository_name: artifact-to-deploy-in-git-repository-name
+git_repository_url: artifact-to-deploy-in-git-repository-url
+

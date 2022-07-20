@@ -1,0 +1,30 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: {{ .Values.name }}-bake
+spec:
+  workspaces:
+    - name: output
+  params:
+    - name: APPLICATION_NAME
+      description: Name of the application
+      type: string
+    - name: WORK_DIRECTORY
+      description: Directory to start build in (handle multiple branches)
+      type: string
+    - name: VERSION
+      description: Application version
+      type: string
+  results:
+    - name: IMAGE
+      description: Image ref spec of the baked application
+  steps:
+    - name: openshift-build
+      workingDir: $(workspaces.output.path)/$(params.WORK_DIRECTORY)
+      image: quay.io/openshift/origin-cli:4.9
+      script: |
+        #!/bin/sh
+        oc new-build --binary --name=$(params.APPLICATION_NAME) -l app=$(params.APPLICATION_NAME) -l app.kubernetes.io/name=$(params.APPLICATION_NAME) --strategy=docker --push-secret=residencyregistry --to-docker --to="residencyregistry.azurecr.io/$(params.APPLICATION_NAME)/$(params.APPLICATION_NAME):$(params.VERSION)" || rc=$?
+        oc patch bc/$(params.APPLICATION_NAME) --patch '{"spec":{"output":{"to":{"name":"residencyregistry.azurecr.io/$(params.APPLICATION_NAME)/$(params.APPLICATION_NAME):$(params.VERSION)"}}}}' --type=merge
+        oc start-build $(params.APPLICATION_NAME) --from-dir=. --follow --wait
